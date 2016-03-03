@@ -1,6 +1,6 @@
 ---
 # Base APT repository URL.
-owncloud_apt_repo_base: 'http://download.owncloud.org/download/repositories/stable'
+owncloud_apt_repo_base: 'http://download.opensuse.org/repositories/isv:ownCloud:desktop/'
 
 # GPG fingerprint for the public key used to sign the APT repository.
 owncloud_apt_repo_key_id: 'BCECA90325B072AB1245F739AB7C32C35180350A'
