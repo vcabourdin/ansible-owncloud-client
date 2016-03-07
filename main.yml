@@ -1,0 +1,24 @@
+---
+- name: Check if hipchat is installed
+  shell: dpkg -l | grep -E '^ii' | grep owncloud-client
+  register: owncloud_installed
+  ignore_errors: yes
+
+
+- name: Get ownCloud APT GPG key
+  apt_key:
+    url: '{{ owncloud_apt_repo_key_url }}'
+    state: present
+    validate_certs: no
+  when: owncloud_installed.rc != 0
+
+- name: Configure ownCloud APT repository
+  apt_repository:
+    repo: '{{ owncloud_apt_repo_source }}'
+    state: present
+    update_cache: True
+  when: owncloud_installed.rc != 0
+
+- name: clear APT cache then install ownCloud package
+  apt: name=owncloud-client update_cache=yes force=yes
+  when: owncloud_installed.rc != 0
